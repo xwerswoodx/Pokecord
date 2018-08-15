@@ -477,6 +477,7 @@ def addEnemyPokedex(nick):
     level = int(readIni(file, 'Enemy', 'Level'))
     write(pfile, str(pokedex) + "\t" + enemy + "\t" + str(level) + "\t" + enemy + "\t" + str(getExpForLevel(50, level)) + "\t" + str(getExpForLevel(50, level)) + "\t" + str(getPokemonHp(enemy, level)) + "\t" + str(getPokemonHp(enemy, level)))
     removeEnemy(nick)
+    writeIni(file, 'General', 'Pokedex', str(pokedex))
     return pokedex
 
 def hasPokeball(nick):
@@ -503,3 +504,35 @@ def getEnd(nick, typ):
     result = result + '===================!'
     return result
 
+def isValidUid(nick, uid):
+    file = getPokedexFile(nick)
+    if read(pfile, 'r', '(?i)' + str(uid) + '\t.+') == None:
+        return False
+    return True
+
+def pokemonHasName(nick):
+    file = getUserFile(nick)
+    if not readIni(file, 'Pokemon', 'Pokemon') == readIni(file, 'Pokemon', 'Name'):
+        return True
+    return False
+
+def pokemonHasTag(nick):
+    file = getUserFile(nick)
+    if not readIni(file, 'Pokemon', 'Tag') == None:
+        return True
+    return False
+
+def getPokemonTag(nick):
+    file = getUserFile(nick)
+    if pokemonHasTag(nick):
+        return readIni(file, 'Pokemon', 'Tag')
+    return None
+
+def getPokemonName(nick):
+    file = getUserFile(nick)
+    if pokemonHasName(nick):
+        if pokemonHasTag(nick):
+            return getPokemonTag(nick) + ' ' + readIni(file, 'Pokemon', 'Name')
+        else:
+            return readIni(file, 'Pokemon', 'Name')
+    return readIni(file, 'Pokemon', 'Pokemon')

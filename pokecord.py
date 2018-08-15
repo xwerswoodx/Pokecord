@@ -338,8 +338,32 @@ async def on_message(message):
         file = getUserFile(user)
         region = readIni(file, 'General', 'Region')
         if region == 'Kanto':
-            await bot.send_message(chan, 'https://img00.deviantart.net/8538/i/2011/080/9/b/labeled_map_of_kanto_by_rythos-d3c4hsg.png')    
-
+            await bot.send_message(chan, 'https://img00.deviantart.net/8538/i/2011/080/9/b/labeled_map_of_kanto_by_rythos-d3c4hsg.png')
+    elif re.match(r'(?i)[!.]pset$', msg[0]):
+        if len(msg) < 2:
+            await bot.send_message(chan, 'Valid actions: xprate')
+            return
+        if msg[1] == 'xprate':
+            rate = 0
+            if len(msg) > 2 and msg[2].isnumeric() and int(msg[2]) >= 0 and int(msg[2]) <= 100:
+                rate = int(msg[2])
+            writeIni(getUserFile(user), 'Pokemon', 'XpRate', str(rate))
+            await bot.send_message(chan, 'Your pokemon Xp rate changed to ' + str(rate) + '.')
+    elif re.match(r'(?i)[!.]pokemon', msg[0]):
+        file = getUserFile(user)
+        if len(msg) < 2:
+            await bot.send_message(chan, 'You have to specify pokemon unique id!')
+            return
+        elif msg[1] == readIni(file, 'Pokemon', 'Uid'):
+            await bot.send_message(chan, 'You have already using this pokemon!')
+            return
+        elif msg[1].isnumeric():
+            uid = int(msg[1])
+            if not isValidUid(user, uid):
+                await boot.send_message(chan, str(uid) + ' is not a valid unique id!')
+                return
+            setMain(user, uid)
+            await bot.send_message(chan, 'You have changed your pokemon to ' + getPokemonName(user))
 
 
 bot.run(TOKEN)

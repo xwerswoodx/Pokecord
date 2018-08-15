@@ -1,0 +1,51 @@
+[General]
+hp = 50
+maxhp = 50
+exp = 14
+next = 50
+level = 1
+region = Kanto
+location = Pallet Town
+pokedex = 1
+gold = 949
+
+[Pokemon]
+xprate = 100
+pokemon = Mega Mewtwo X
+uid = 1
+level = 7
+name = Mega Mewtwo X
+hp = 265
+maxhp = 265
+exp = 106
+next = 191
+
+[Items]
+pokeball = 1
+
+[Stats]
+str = 0
+dex = 0
+int = 0
+stam = 0
+hits = 0
+mana = 0
+
+[Skills]
+pokemonid = 3
+pokemonid cur = 26
+pokemonid max = 39
+
+[Timers]
+adventure = 1534360036
+info = 1534358616
+catch = 1534358948
+
+[Enemy]
+pokemon = metapod
+hp = 0
+maxhp = 100
+level = 4
+region = Kanto
+location = Pallet Town
+

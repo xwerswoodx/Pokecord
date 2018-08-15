@@ -6,7 +6,7 @@ import random
 from discord.ext import commands
 from header_pokecord import *
 
-TOKEN = 'NDc4NzA0OTM5Mjg4MzYzMDE5.DlOkfw.dJ455eAXaZyT2KxU8H-xzNHX2Og'
+TOKEN = ''
 bot = commands.Bot(command_prefix = '!')
 #test = getRandomElement(["Test 1", "Test2 2"])
 

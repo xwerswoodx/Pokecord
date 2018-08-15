@@ -1,0 +1,185 @@
+#Pokemon		Hp	Min	Max	Types			Exp	Pokedex		Items			Evolutions
+Bulbasaur		25	2	6	Grass|Poison		10	1		0			Ivysaur@Level:16
+Ivysaur			35	4	9	Grass|Poison		15	2		0			Venusaur@Level:32
+Venusaur		42	7	11	Grass|Poison		21	3		0			Mega Venusaur@Item:Venusaurite
+Mega Venusaur		50	11	18	Grass|Poison		40	3M		0			null
+Charmander		23	2	7	Fire			10	4		0			Charmeleon@Level:16
+Charmeleon		29	5	10	Fire			14	5		0			Charizard@Level:32
+Charizard		34	11	16	Fire|Flying		20	6		0			Mega Charizard Y@Item:Charizardite Y|Mega Charizard X@Item:Charizardite X
+Mega Charizard X	50	13	19	Fire|Dragon		38	6MX		0			null
+Mega Charizard Y	42	16	25	Fire|Flying		39	6MY		0			null
+Squirtle		24	3	6	Water			10	7		0			Wartortle@Level:16
+Wartortle		34	5	9	Water			16	8		0			Blastoise@Level:32
+Blastoise		41	8	11	Water			25	9		0			Mega Blastoise@Item:Blastoisinite
+Mega Blastoise		49	12	18	Water			45	9M		0			null
+Caterpie		20	1	3	Bug			1	10		0			Metapod@Level:7
+Metapod			25	0	4	Bug			4	11		0			Butterfree@Level:10
+Butterfree		30	3	6	Bug|Flying 		6 	12		0			null
+Weedle			20	1	3	Bug			1	13		0			Kakuna@Level:7
+Kakuna			25	0	4	Bug			5	14		0			Beedrill@Level:10
+Beedrill		30	3	6	Bug|Poison		7	15		0			Mega Beedrill@Item:Beedrillite
+Mega Beedrill		45	10	20	Bug|Poison		10	15M		0			null
+Pidgey			23	2	3	Normal|Flying		2	16		0			Pidgetto@Level:18
+Pidgetto		30	3	6	Normal|Flying		4	17		0			Pidgeot@Level:36
+Pidgeot			35	4	7	Normal|Flying		5	18		0			Mega Pidgeot@Item:Pidgeotite
+Mega Pidgeot		50	12	23	Normal|Flying		11	18M		0			null
+Rattata			21	1	2	Normal			1	19		0			Raticate@Level:20
+Alolan Rattata		18	2	5	Dark|Normal		5	19A		0			Alolan Raticate@Level:20
+Raticate		25	2	4	Normal			3	20		0			null
+Alolan Raticate		22	4	8	Dark|Normal		10	20A		0			null
+Spearow			19	1	4	Normal|Flying		2	21		0			Fearow@Level:20
+Fearow			21	4	7	Normal|Flying		5	22		0			null
+Ekans			21	1	4	Poison			2	23		0			Arbok@Level:22
+Arbok			23	3	6	Poison			4	24		0			null
+Pikachu			18	4	7	Electric		3	25		0			Alolan Raichu@ItemRegion:Thunder Stone:Alola|Raichu@Item:Thunder Stone
+Raichu			25	8	10	Electric		7	26		0			null
+Alolan Raichu		30	8	12	Electric|Psychic	10	26A		0			null
+Sandshrew		24	1	5	Ground			2	27		0			Sandslash@Level:22
+Alolan Sandshrew	32	1	4	Ice|Steel		4	27A		0			Alolan Sandslash@Level:22
+Sandslash		28	3	6	Ground			6	28		0			null
+Alolan Sandslash	40	4	8	Ice|Steel		10	28A		0			null
+Nidoran (Diþi)		25	2	5	Poison			3	29		0			Nidorina@Level:16
+Nidorina		32	4	7	Poison			6	30		0			Nidoqueen@Item:Moon Stone
+Nidoqueen		37	7	11	Poison|Ground		10	31		0			null
+Nidoran (Erkek)		22	3	6	Poison			3	32		0			Nidorino@Level:16
+Nidorino		29	5	9	Poison			6	33		0			Nidoking@Item:Moon Stone
+Nidoqking		33	11	14	Poison|Ground		10	34		0			null
+Clefairy		20	1	2	Fairy			3	35		0			Clefable@Item:Moon Stone
+Clefable		30	4	6	Fairy			7	36		0			null
+Vulpix			23	1	7	Fire			3	37		0			Ninetales@Item:Fire Stone
+Alolan Vulpix		28	1	5	Ice			5	37A		0			Alolan Ninetales@Item:Ice Stone
+Ninetales		28	5	11	Fire			10	38		0			null
+Alolan Ninetales	35	4	9	Ice			15	38A		0			null
+Jigglypuff		24	0	1	Normal|Fairy		1	39		0			Wigglytuff@Item:Moon Stone
+Wigglytuff		30	0	5	Normal|Fairy		2	40		0			null
+Zubat			20	3	6	Poison|Flying		2	41		0			Golbat@Level:22
+Golbat			23	4	7	Poison|Flying		4	42		0			Crobat@Friendship
+Oddish			22	2	5	Grass|Poison		4	43		0			Gloom@Level:21
+Gloom			30	4	9	Grass|Poison		8	44		0			Vileplume@Item:Leaf Stone|Bellossom@Item:Sun Stone
+Vileplume		33	5	10	Grass|Poison		10	45		0			null
+Paras			18	1	3	Bug|Grass		2	46		0			Parasect@Level:24
+Parasect		20	2	4	Bug|Grass		3	47		0			null
+Venonat			19	3	5	Bug|Poison		2	48		0			Venomoth@Level:31
+Venomoth		22	4	6	Bug|Poison		4	49		0			null
+Diglett			13	5	10	Ground			3	50		0			Dugtrio@Level:26
+Alolan Diglett		20	5	10	Ground|Steel		7	50A		0			Alolan Dugtrio@Level:26
+Dugtrio			15	10	18	Ground			10	51		0			null
+Alolan Dugtrio		30	10	18	Ground|Steel		15	51A		0			null
+Meowth			15	1	3	Normal			1	52		0			Persian@Level:28
+Alolan Meowth		15	3	8	Dark			5	52A		0			Alolan Persian@Level:28
+Persian			20	2	4	Normal			3	53		0			null
+Alolan Persian		20	4	10	Dark			10	53A		0			null
+Psyduck			10	5	7	Water			2	54		0			Golduck@Level:33
+Golduck			20	6	9	Water			5	55		0			null
+Mankey			13	5	6	Fighting		5	56		0			Primeape@Level:28
+Primeape		25	10	12	Fighting		12	57		0			null
+Growlithe		20	3	4	Fire			4	58		0			Arcanine@Item:Fire Stone
+Arcanine		25	5	8	Fire			10	59		0			null
+Poliwag			17	1	4	Water			2	60		0			Poliwhirl@Level:25
+Poliwhirl		20	2	6	Water			5	61		0			Poliwrath@Item:Water Stone|Politoed@TradeItem:Kings Rock
+Poliwrath		25	10	15	Water|Fighting		10	62		0			null
+Abra			12	5	10	Psychic			5	63		0			Kadabra@Level:16
+Kadabra			18	8	15	Psychic			10	64		0			Alakazam@Trade
+Alakazam		25	12	20	Psychic			15	65		0			Mega Alakazam@Item:Alakazite
+Mega Alakazam		45	15	25	Psychic			25	65M		0			null
+Machop			15	3	4	Fighting		2	66		0			Machoke@Level:28
+Machoke			19	5	6	Fighting		4	67		0			Machamp@Trade
+Machamp			30	10	12	Fighting		10	68		0			null
+Bellsprout		12	1	4	Grass|Poison		2	69		0			Weepinbell@Level:21
+Weepinbell		16	2	6	Grass|Poison		5	70		0			Victreebell@Item:Leaf Stone
+Victreebell		22	5	10	Grass|Poison		10	71		0			null
+Tentacool		22	1	5	Water|Poison		4	72		0			Tentacruel@Level:30
+Tentacruel		30	5	8	Water|Poison		9	73		0			null
+Geodude			25	1	2	Rock|Ground		2	74		0			Graveler@Level:25
+Alolan Geodude		20	3	5	Rock|Electric		4	74A		0			Alolan Graveler@Level:25
+Graveler		32	2	4	Rock|Ground		4	75		0			Golem@Trade
+Alolan Graveler		26	5	7	Rock|Electric		8	75A		0			Alolan Golem@Trade
+Golem			40	5	10	Rock|Ground		9	76		0			null
+Alolan Golem		33	12	17	Rock|Electric		11	76A		0			null
+Ponyta			22	2	5	Fire			4	77		0			Rapidash@Level:40
+Rapidash		24	5	10	Fire			8	78		0			null
+Slowpoke		11	1	2	Water|Psychic		1	79		0			Slowbro@Level:37|Slowking@TradeItem:Kings Rock
+Slowbro			25	5	10	Water|Psychic		5	80		0			Mega Slowbro@Item:Slowbronite
+Mega Slowbro		35	10	20	Water|Psychic		15	80M		0			null
+Magnemite		25	2	5	Electric|Steel		3	81		0			Magneton@Level:30
+Magneton		30	5	8	Electric|Steel		7	82		0			Magnezone@Region:Magnetic Field
+Farfetch'd		30	4	9	Normal|Flying		5	83		0			null
+Doduo			20	4	5	Normal|Flying		3	84		0			Dodrio@Level:31
+Dodrio			30	5	10	Normal|Flying		8	85		0			null
+Seel			19	1	6	Water			2	86		0			Dewgong@Level:34
+Dewgong			28	4	12	Water|Ice		9	87		0			null
+Grimer			18	2	8	Poison			2	88		0			Muk@Level:38
+Alolan Grimer		18	4	10	Poison|Dark		5	88A		0			Alolan Muk@Level:38
+Muk			25	3	14	Poison			6	89		0			null
+Alolan Muk		25	6	20	Poison|Dark		10	89A		0			null
+Shellder		20	4	6	Water			3	90		0			Cloyster@Item:Water Stone
+Cloyster		22	6	9	Water			5	91		0			null
+Gastly			12	1	5	Ghost|Poison		4	92		0			Haunter@Level:25
+Haunter			20	5	9	Ghost|Poison		8	93		0			Gengar@Trade
+Gengar			35	10	15	Ghost|Poison		14	94		0			Mega Gengar@Item:Gengarite
+Mega Gengar		45	15	20	Ghost|Poison		20	94M		0			null
+Onix			30	1	3	Rock|Ground		6	95		0			Steelix@TradeItem:Metal Coat
+Drowzee			19	2	5	Psychic			3	96		0			Hypno@Level:26
+Hypno			25	5	11	Psychic			8	97		0			null
+Krabby			17	2	6	Water			2	98		0			Kingler@Level:28
+Kingler			25	5	9	Water			5	99		0			null
+Voltorb			22	1	8	Electric		3	100		0			Electrode@Level:30
+Electrode		25	5	15	Electric		10	101		0			null
+Exeggcute		21	1	5	Grass|Psychic		4	102		0			Alolan Exeggutor@ItemRegion:Leaf Stone:Alola|Exeggutor@Item:Leaf Stone
+Exeggutor		27	5	16	Grass|Psychic		8	103		0			null
+Alolan Exeggutor	25	15	21	Grass|Dragon		10	103A		0			null
+Cubone			20	3	4	Ground			2	104		0			Alolan Marowak@DayRegionLevel:Night:Alola:28|Marowak@Level:28
+Marowak			30	5	10	Ground			7	105		0			null
+Alolan Marowak		25	10	17	Fire|Ghost		15	105A		0			null
+Hitmonlee		20	16	17	Fighting		13	106		0			null
+Hitmonchan		26	10	11	Fighting		13	107		0			null
+Lickitung		12	1	3	Normal			1	108		0			Lickilicky@Item:Rollout Move
+Koffing			14	1	5	Poison			2	109		0			Weezing@Level:35
+Weezing			20	5	12	Poison			5	110		0			null
+Rhyhorn			26	3	6	Ground|Rock		4	111		0			Rhydon@Level:42
+Rhydon			40	10	18	Ground|Rock		15	112		0			null
+Chansey			12	0	1	Normal			10	113		Lucky Egg		Blissey@Happiness
+Tangela			20	5	10	Grass			5	114		0			Tangrowth@Item:Ancient Power Move
+Kangaskhan		25	1	12	Normal			4	115		0			Mega Kangaskhan@Item:Kangaskhanite
+Mega Kangaskhan		38	3	20	Normal			10	115M		0			null
+Horsea			10	3	4	Water			1	116		0			Seadra@Level:32
+Seadra			18	5	10	Water			5	117		0			Kingdra@TradeItem:Dragon Scale
+Goldeen			12	1	3	Water			2	118		0			Seaking@Level:33
+Seaking			20	5	10	Water			6	119		0			null
+Staryu			19	4	7	Water			4	120		0			Starmie@Item:Water Stone
+Starmie			28	5	15	Water|Psychic		10	121		0			null
+Mr.Mime			35	0	25	Psychic|Fairy		8	122		0			null
+Scyther			25	5	15	Bug|Flying		7	123		0			Scizor@TradeItem:Metal Coat
+Jynx			30	12	20	Ice|Psychic		7	124		0			null
+Electabuzz		30	5	15	Electric		5	125		0			Electivire@TradeItem:Electirizer
+Magmar			32	10	20	Fire			8	126		0			Magmortar@TradeItem:Magmarizer
+Pinsir			22	10	12	Bug			7	127		0			Mega Pinsir@Item:Pinsirite
+Mega Pinsir		35	20	24	Bug|Flying		15	127M		0			null
+Tauros			25	5	10	Normal			4	128		0			null
+Magikarp		12	0	0	Water			1	129		0			Gyarados@Level:20
+Gyarados		20	10	15	Water|Flying		7	130		0			Mega Gyarados@Item:Gyaradosite
+Mega Gyarados		20	15	20	Water|Dark		12	130M		0			null
+Lapras			30	10	25	Water|Ice		9	131		0			null
+Ditto			x	x	x	Normal			15	132		0			null
+Eevee			12	4	7	Normal			8	133		0			Vaporeon@Item:Water Stone|Jolteon@Item:Thunder Stone|Flareon@Item:Fire Stone|Espeon@FriendshipDay:Morning|Umbreon@FriendshipDay:Night|Leafeon@Item:Moss Rock|Glaceon@Item:Ice Rock|Sylveon@Item:Fairy Stone
+Vaporeon		20	5	10	Water			10	134		0			null
+Jolteon			16	6	10	Electric		11	135		0			null
+Flareon			15	7	14	Fire			10	136		0			null
+Porygon			40	1	10	Normal			16	137		0			Porygon2@TradeItem:Up-Grade|Porygon-Z@TradeItem:Dubious Disc
+Omanyte			30	5	15	Rock|Water		20	138		0			Omastar@Level:40
+Omastar			42	10	22	Rock|Water		40	139		0			null
+Kabuto			25	10	18	Rock|Water		21	140		0			Kabutops@Level:40
+Kabutops		35	20	25	Rock|Water		45	141		0			null
+Aerodactyl		32	15	25	Rock|Flying		25	142		0			Mega Aerodactyl@Item:Aerodactylite
+Mega Aerodactyl		45	25	40	Rock|Flying		40	142M		0			null
+Snorlax			50	5	6	Normal			30	143		0			null
+Articuno		40	40	45	Ice|Flying		100	144		0			null
+Zapdos			36	42	50	Electric|Flying		100	145		0			null
+Moltres			37	45	51	Fire|Flying		100	146		0			null
+Dratini			14	3	10	Dragon			6	147		0			Dragonair@Level:30
+Dragonair		25	10	15	Dragon			12	148		0			Dragonite@Level:55
+Dragonite		35	12	30	Dragon|Flying		20	149		0			null
+Mewtwo			30	50	52	Psychic			110	150		0			Mega Mewtwo Y@Item:Mewtwonite Y|Mega Mewtwo X@Item:Mewtwonite X
+Mega Mewtwo X		35	55	60	Psychic|Fighting	125	150MX		0			null
+Mega Mewtwo Y		40	50	54	Psychic			125	150MY		0			null
+Mew			45	30	50	Psychic			100	151		0			null

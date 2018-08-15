@@ -41,10 +41,10 @@ def getRandomElement(array):
 def writeIni(file, section, key, value):
     config.clear()
     config.read(file)
-    if not config.has_section(section):
-        config.add_section(section)
+    if not config.has_section(section.title()):
+        config.add_section(section.title())
 
-    config.set(section, key, value)
+    config.set(section.title(), key.title(), value.title())
 
     with open(file, 'w') as configfile:
         config.write(configfile)
@@ -53,21 +53,21 @@ def writeIni(file, section, key, value):
 def readIni(file, section, key):
     config.clear()
     config.read(file)
-    if not config.has_section(section):
+    if not config.has_section(section.title()):
         return None
-    elif not config.has_option(section, key):
+    elif not config.has_option(section.title(), key.title()):
         return None
-    return config.get(section, key)
+    return config.get(section.title(), key.title())
 
 def removeIni(file, section, key = None):
     config.clear()
     config.read(file)
     if key == None:
-        if config.has_section(section):
-            config.remove_section(section)
+        if config.has_section(section.title()):
+            config.remove_section(section.title())
     else:
-        if config.has_option(section, key):
-            config.remove_option(section, key)
+        if config.has_option(section.title(), key.title()):
+            config.remove_option(section.title(), key.title())
 
     with open(file, 'w') as configfile:
         config.write(configfile)
@@ -76,17 +76,17 @@ def removeIni(file, section, key = None):
 def ini(file, section, item = 0):
     config.clear()
     config.read(file)
-    if config.has_section(section):
-        if item > 0 and item <= len(config.items(section)):
-            return config.items(section)[item - 1][0]
+    if config.has_section(section.title()):
+        if item > 0 and item <= len(config.items(section.title())):
+            return config.items(section.title())[item - 1][0]
         else:
-            return len(config.items(section))
+            return len(config.items(section.title()))
     return 0
 
 def hasIni(file, section, key):
     config.clear()
     config.read(file)
-    if config.has_section(section) and config.has_option(section, key):
+    if config.has_section(section.title()) and config.has_option(section.title(), key.title()):
         return True
     return False
 
@@ -166,7 +166,6 @@ def setMain(nick, uid):
         line = read(pfile, str(lineNo))
         line = re.split(r'\t+', line)
         writeLine(pfile, lineNo, line[0] + "\t" + readIni(file, 'Pokemon', 'Pokemon') + "\t" + readIni(file, 'Pokemon', 'Level') + "\t" + readIni(file, 'Pokemon', 'Name') + "\t" + readIni(file, 'Pokemon', 'Exp') + "\t" + readIni(file, 'Pokemon', 'Next') + "\t" + readIni(file, 'Pokemon', 'Hp') + "\t" + readIni(file, 'Pokemon', 'MaxHp'))
-
     lineNo = readLine(pfile, 'r', '(?i)' + str(uid) + '\t.+')
     line = read(pfile, str(lineNo))
     line = re.split(r'\t+', line)
@@ -181,8 +180,9 @@ def setMain(nick, uid):
 
     
 def write(file, text):
-    with open(file, 'a') as f:
-        f.write(text + "\n")
+    f = open(file, 'a')
+    f.write(text + "\n")
+    f.close()
 
 ##def writeLine(file, line, text, insert = False):
 ##    i = 0
@@ -204,11 +204,20 @@ def writeLine(file, line, text, insert = False):
             if i == line:
                 o.write(text + "\n")
             elif not i == line or insert:
-                o.write(ln + "\n")
+                ln = ln.strip()
+                if ln:
+                    o.write(ln + "\n")
 
     os.remove(file)
     os.rename(file + '.temp', file)
-        
+
+def lines(file):
+    i = 0
+    with open(file, 'r') as f:
+        for ln in f:
+            i += 1
+    return i
+
 def read(file, typ = '1', text = None):
     i = 0
     search = None
@@ -281,6 +290,7 @@ def createProfile(nick, reset = False):
     writeIni(file, "General", "Region", "Kanto")
     writeIni(file, "General", "Location", "Pallet Town")
     writeIni(file, "General", "Pokedex", "0")
+    writeIni(file, "General", "StatPoints", "5")
 
     #Pokemon Section
     writeIni(file, "Pokemon", "XpRate", "0")
@@ -372,6 +382,20 @@ def createEnemy(nick):
     writeIni(file, 'Enemy', 'MaxHp', str(getPokemonHp(enemy, eLevel)))
     writeIni(file, 'Enemy', 'Level', str(eLevel))
     writeIni(file, 'Enemy', 'Region', readIni(file, 'General', 'Region'))
+    writeIni(file, 'Enemy', 'Location', readIni(file, 'General', 'Location'))
+
+def createFishEnemy(nick):
+    file = getUserFile(nick)
+    enemy = getRandomFishPokemon(nick)
+    level = int(readIni(file, 'General', 'Level'))
+    levelMin = getMax(level - 2,1)
+    levelMax = level + 2
+    eLevel = random.randint(levelMin, levelMax + 1)
+    writeIni(file, 'Enemy', 'Pokemon', enemy)
+    writeIni(file, 'Enemy', 'Hp', str(getPokemonHp(enemy, eLevel)))
+    writeIni(file, 'Enemy', 'MaxHp', str(getPokemonHp(enemy, eLevel)))
+    writeIni(file, 'Enemy', 'Level', str(eLevel))
+    writeIni(file, 'Enemy', 'Region', readIni(file, 'General', 'Region'))
     writeIni(file, 'Enemy', 'Location', readIni(file, 'General', 'Location'))    
 
 def getMax(v1, v2):
@@ -383,16 +407,24 @@ def removeEnemy(nick):
     file = getUserFile(nick)
     removeIni(file, 'Enemy')
 
-def canAdventureUser(nick):
+def canAdventureUser(nick, fish = False):
     file = getUserFile(nick)
-    return canAdventure(readIni(file, 'General', 'Region'), readIni(file, 'General', 'Location'))
+    if fish:
+        return canAdventureFish(readIni(file, 'General', 'Region'), readIni(file, 'General', 'Location'))
+    else:
+        return canAdventure(readIni(file, 'General', 'Region'), readIni(file, 'General', 'Location'))
 
 def canAdventure(region, location):
     file = 'map\\' + region + '.map'
     if ini(file, location, 0) > 0:
         return True
     return False
-    
+
+def canAdventureFish(region, location):
+    file = 'map\\' + region + '.map'
+    if ini(file, location + ' Fish', 0) > 0:
+        return True
+    return False
     
 def getRandomPokemon(nick):
     file = getUserFile(nick)
@@ -406,6 +438,25 @@ def getRandomPokemon(nick):
         while i <= pokes:
             poke = ini(mfile, location, i)
             chance = readIni(mfile, location, poke)
+            array.append(poke + ' ' + chance)
+            i += 1
+
+        if len(array) > 0:
+            return getRandomElement(array)
+    return None
+
+def getRandomFishPokemon(nick):
+    file = getUserFile(nick)
+    region = readIni(file, 'General', 'Region')
+    location = readIni(file, 'General', 'Location')
+    mfile = 'map\\' + region + '.map'
+    array = []
+    if ini(mfile, location + ' Fish', 0) > 0:
+        pokes = ini(mfile, location + ' Fish', 0)
+        i = 1
+        while i <= pokes:
+            poke = ini(mfile, location + ' Fish', i)
+            chance = readIni(mfile, location + ' Fish', poke)
             array.append(poke + ' ' + chance)
             i += 1
 
@@ -475,7 +526,7 @@ def addEnemyPokedex(nick):
     pokedex = int(readIni(file, 'General', 'Pokedex')) + 1
     enemy = readIni(file, 'Enemy', 'Pokemon')
     level = int(readIni(file, 'Enemy', 'Level'))
-    write(pfile, str(pokedex) + "\t" + enemy + "\t" + str(level) + "\t" + enemy + "\t" + str(getExpForLevel(50, level)) + "\t" + str(getExpForLevel(50, level)) + "\t" + str(getPokemonHp(enemy, level)) + "\t" + str(getPokemonHp(enemy, level)))
+    write(pfile, str(pokedex) + "\t" + enemy + "\t" + str(level) + "\t" + enemy + "\t0\t" + str(getExpForLevel(50, level)) + "\t" + str(getPokemonHp(enemy, level)) + "\t" + str(getPokemonHp(enemy, level)))
     removeEnemy(nick)
     writeIni(file, 'General', 'Pokedex', str(pokedex))
     return pokedex
@@ -506,7 +557,7 @@ def getEnd(nick, typ):
 
 def isValidUid(nick, uid):
     file = getPokedexFile(nick)
-    if read(pfile, 'r', '(?i)' + str(uid) + '\t.+') == None:
+    if read(file, 'r', '(?i)' + str(uid) + '\t.+') == None:
         return False
     return True
 
@@ -530,9 +581,57 @@ def getPokemonTag(nick):
 
 def getPokemonName(nick):
     file = getUserFile(nick)
+    name = readIni(file, 'Pokemon', 'Pokemon')
     if pokemonHasName(nick):
-        if pokemonHasTag(nick):
-            return getPokemonTag(nick) + ' ' + readIni(file, 'Pokemon', 'Name')
+        name = readIni(file, 'Pokemon', 'Name')
+
+    if pokemonHasTag(nick):
+        return getPokemonTag(nick) + ' ' + name
+    return name
+
+def isValidLocation(nick, loc):
+    file = getUserFile(nick)
+    r = readIni(file, 'General', 'Region')
+    l = readIni(file, 'General', 'Location')
+    if not readIni('map\\' + r + '.map', l + ' Travel', loc) == None:
+        return True
+    return False
+
+def addInfo(nick, info, amount = 1):
+    file = getUserFile(nick)
+    current = 0
+    if hasIni(file, 'General', info):
+        current = int(readIni(file, 'General', info))
+    current += amount
+    writeIni(file, 'General', info, str(current))
+
+def getInfo(nick, info):
+    file = getUserFile(nick)
+    if hasIni(file, 'General', info):
+        return int(readIni(file, 'General', info))
+    return 0
+
+def getProcessBar(nick, percentage, box = 10):
+    file = getUserFile(nick)
+    typ = 1
+    if hasIni(file, 'Settings', 'Pbar'):
+        typ = int(readIni(file, 'Settings', 'Pbar'))
+    
+    amount = int(round((percentage * box) / 100))
+    result = ''
+    i = 1
+    while i <= amount:
+        if typ == 1:
+            result = result + '⬜'
         else:
-            return readIni(file, 'Pokemon', 'Name')
-    return readIni(file, 'Pokemon', 'Pokemon')
+            result = result + '⬛'
+        i += 1
+    d = box - amount
+    while d > 0:
+        if typ == 1:
+            result = result + '⬛'
+        else:
+            result = result + '⬜'
+        d -= 1
+    return result
+

@@ -1,4 +1,19 @@
-[Pallet Town]
+[Pallet Town Travel]
+Route 1=1
+Route 21=50
+
+[Route 1 Travel]
+Pallet Town=1
+Viridian City=3
+
+[Viridian City Travel]
+Route 1=1
+Route 22=4
+
+[Pallet Town Fish]
+Magikarp=10
+
+[Route 1]
 Caterpie=10
 Weedle=10
 Metapod=10
@@ -9,3 +24,20 @@ Raticate=1
 Spearow=6
 Ekans=2
 Mankey=8
+
+[Route 22]
+Mankey=8
+Pidgey=8
+Weedle=2
+Caterpie=2
+Rattata=10
+Raticate=1
+Fearow=1
+Spearow=9
+Meowth=5
+Oddish=10
+
+[Route 22 Fish]
+Magikarp=100
+Poliwag=10
+Staryu=2

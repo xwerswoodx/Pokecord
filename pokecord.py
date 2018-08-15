@@ -33,19 +33,35 @@ async def on_message(message):
         else:
             setTime(user, 'adventure', 5)
 
+        encounter = False
+        file = getUserFile(user)
+        if hasEnemy(user) and int(readIni(file, 'Enemy', 'Hp')) <= 0:
+            removeEnemy(user)
+        
+        if len(msg) > 1 and msg[1] == 'fish':
+            if not canAdventureUser(user, True):
+                await bot.send_message(chan, 'You can\'t fish here.')
+                return
+            
+            if not hasEnemy(user) or int(readIni(file, 'Enemy', 'Hp')) <= 0 or not readIni(file, 'Enemy', 'Region') == readIni(file, 'General', 'Region') or not readIni(file, 'Enemy', 'Location') == readIni(file, 'General', 'Location'):
+                createFishEnemy(user)
+                encounter = True
+            else:
+                await bot.send_message(chan, 'You are already in battle.')
+                return
+
         if not canAdventureUser(user):
-            await bot.send_message(chan, 'You can\'t adventure here.')
-            return
+            if not hasEnemy(user) or not readIni(file, 'Enemy', 'Region') == readIni(file, 'General', 'Region') or not readIni(file, 'Enemy', 'Location') == readIni(file, 'General', 'Location'):
+                await bot.send_message(chan, 'You can\'t adventure here.')
+                return
 
         if len(msg) > 1 and msg[1] == '1':
             removeEnemy(user)
         else:
-            file = getUserFile(user)
             if int(readIni(file, 'General', 'Hp')) <= 0 or int(readIni(file, 'Pokemon', 'Hp')) <= 0:
                 await bot.send_message(chan, 'You have to heal yourself and your pokemon to continue adventure.')
                 return
 
-            encounter = False
             if not hasEnemy(user) or int(readIni(file, 'Enemy', 'Hp')) <= 0 or not readIni(file, 'Enemy', 'Region') == readIni(file, 'General', 'Region') or not readIni(file, 'Enemy', 'Location') == readIni(file, 'General', 'Location'):
                 createEnemy(user)
                 encounter = True
@@ -125,19 +141,19 @@ async def on_message(message):
                 writeIni(file, 'General', 'Exp', str(exp))
                 gold = 5 + level + random.randint(expMin, expMax + 1)
                 addGold(user, gold)
-                    
 
             msg = '!=================[ ' + user.name + ' Adventure ]=================!\n'
             if encounter:
-                msg = msg + '% You have encountered level ' + str(enemyLevel) + ' wild ' + enemy + '\n'
+                addInfo(user, 'Encounters', 1)
+                msg = msg + 'x You have encountered wild ' + enemy + ' [lv. ' + str(enemyLevel) + ']\n'
             if enemyCritical > 1:
-                msg = msg + '- Critical Damage!\n'
+                msg = msg + '- Wild ' + enemy + ' [lv. ' + str(enemyLevel) + '] dealt critical damage!\n'
             msg = msg + '- You lost ' + str(enemyDamage) + ' health.\n'
             if critical > 1:
-                msg = msg + '+ Critical Damage!\n'
-            msg = msg + '+ You dealth ' + str(damage) + ' damage.\n'
+                msg = msg + '+ You dealt critical damage!\n'
+            msg = msg + '+ You dealt ' + str(damage) + ' damage.\n'
             msg = msg + '- ' + pokemon + ' lost ' + str(enemyPokemonDamage) + ' health.\n'
-            msg = msg + '+ ' + pokemon + ' dealth ' + str(pokemonDamage) + ' damage.\n'
+            msg = msg + '+ ' + pokemon + ' dealt ' + str(pokemonDamage) + ' damage.\n'
             if pokemonHp > ((pokemonMaxHp * 25) / 100):
                 msg = msg + '+ ' + pokemon + ' has ' + str(pokemonHp) + '/' + str(pokemonMaxHp) + ' health left.\n'
             else:
@@ -148,10 +164,17 @@ async def on_message(message):
             else:
                 msg = msg + '- You have ' + str(hp) + '/' + str(maxHp) + ' health left.\n'
 
-            msg = msg + '+ Enemy ' + enemy + ' has ' + str(enemyHp) + '/' + str(enemyMaxHp) + ' health left.\n'
+            if enemyHp > 0:
+                msg = msg + 'x Wild ' + enemy + ' [lv. ' + str(enemyLevel) + '] has ' + str(enemyHp) + '/' + str(enemyMaxHp) + ' health left.\n'
 
             if result == 1:
-                msg = msg + '+ You defeated level ' + str(enemyLevel) + ' wild ' + enemy + ' and earned ' + str(gold) + ' gold and ' + str(enemyExp) + ' experience points.\n'
+                if encounter:
+                    addInfo(user, 'Slays', 1)
+                else:
+                    addInfo(user, 'Kills', 1)
+                #msg = msg + '+ Enemy level ' + str(enemyLevel) + ' wild ' + enemy + ' fainted.\n'
+                msg = msg + 'x Wild ' + enemy + ' [lv. ' + str(enemyLevel) + '] fainted.\n'
+                msg = msg + '+ Rewards: ' + str(gold) + ' gold and ' + str(enemyExp) + ' experience points.\n'
                 curExp = int(readIni(file, 'General', 'Exp'))
                 reqExp = int(readIni(file, 'General', 'Next'))
                 curHp = int(readIni(file, 'General', 'MaxHp'))
@@ -169,6 +192,7 @@ async def on_message(message):
                 writeIni(file, 'General', 'MaxHp', str(curHp))
                 if levelUp:
                     msg = msg + '% You have leveled up and earned 5 stat points!\n'
+                    addInfo(user, 'StatPoints', 5)
                 
                 if pokemonExp > 0:
                     msg = msg + '+ ' + pokemon + ' earned ' + str(pokemonExp) + ' experience points.\n'
@@ -218,8 +242,16 @@ async def on_message(message):
                     
                                             
             elif result == 2:
-                msg = msg + '- You have defeated by level ' + str(enemyLevel) + ' wild ' + enemy + '\n'                
+                msg = msg + '- You have defeated by level ' + str(enemyLevel) + ' wild ' + enemy + '\n'
+
             msg = msg + getEnd(user, 'Adventure') + '\n' #'!=================[ ' + user.name + ' Adventure ]=================!\n'
+            perc = int(round((int(readIni(file, 'General', 'Exp')) * 100) / int(readIni(file, 'General', 'Next'))))
+            pperc = int(round((int(readIni(file, 'Pokemon', 'Exp')) * 100) / int(readIni(file, 'Pokemon', 'Next'))))
+            pbar = getProcessBar(user, perc, 25)
+            ppbar = getProcessBar(user, pperc, 25)
+            msg = msg + pbar + ' [You]\n'
+            msg = msg + ppbar + ' [' + pokemon + ']\n'
+
 
             await bot.send_message(chan, '```diff\n' + msg + '```')
             addPokedex(user)
@@ -231,6 +263,7 @@ async def on_message(message):
     elif re.match(r'(?i)[!.](run|ayr[iİı]l)$', msg[0]):
         await bot.send_message(chan, 'You have run away from level ' + readIni(getUserFile(user), 'Enemy', 'Level') + ' wild ' + readIni(getUserFile(user), 'Enemy', 'Pokemon') + '.')
         removeEnemy(user)
+        
     elif re.match(r'(?i)[!.](b[iİı]lg[iİı]|info)', msg[0]):
         if getTimeLeft(user, 'info') >= 0:
             await bot.send_message(chan, 'You need to wait ' + str(getTimeLeft(user, 'info')) + ' seconds more to use this command again.')
@@ -255,19 +288,21 @@ async def on_message(message):
         pokemonLevel = int(readIni(file, 'Pokemon', 'Level'))
         pokemonId = int(readIni(file, 'Skills', 'PokemonID')) #Pokemon ID skill bonus
         
-        
+##        print('{}'.format(getProcessBar(cur, req)))
+        pbar = getProcessBar(nick, perc)
         await bot.send_message(chan, '```diff\n\
 !=================[ ' + nick.name + ' Info ]=================!\n\
-+ Level: ' + readIni(file, 'General', 'Level') + ' [' + str(cur) + '/' + str(req) + 'XP (' + str(perc) + '%)]' + '\n\
++ Level: ' + readIni(file, 'General', 'Level') + ' [' + str(cur) + '/' + str(req) + 'XP (' + str(perc) + '%)] [' + pbar + ']\n\
 + Damage: ' + getDamage(nick) + '\n\
-+ Gold: ' + '{:,.0f}PG'.format(int(readIni(file, 'General', 'Gold'))) + '\n\
++ Money: ' + '{:,.0f} ₱'.format(int(readIni(file, 'General', 'Gold'))) + '\n\
++ Stat Points: ' + str(getInfo(nick, 'StatPoints')) + '\n\
 + Weapon:\n\
 + Pokemon: ' + readIni(file, 'Pokemon', 'Pokemon') + '\n\
 + Pokemon Level: ' + readIni(file, 'Pokemon', 'Level') + ' [' + str(pcur) + '/' + str(preq) + 'XP (' + str(pperc) + '%)]' + '\n\
 + Pokemon Damage: ' + str(getPokemonMin(pokemon, pokemonLevel)) + '-' + str(getPokemonMax(pokemon, pokemonLevel)) + ' [+' + str(pokemonId) + ' from pokemonID]\n\
 ' + getEnd(nick, 'Info') + '\n\
 ```')
-
+##+ You have encountered ' + str(getInfo(nick, 'Encounters')) + ' [' + str(getInfo(nick, 'Slays')) + ' slayed and ' + str(getInfo(nick, 'Kills')) + ' killed] pokemons.\n\
     elif re.match(r'(?i)[!.](catch|yakala)$', msg[0]):
         if getTimeLeft(user, 'catch') >= 0:
             await bot.send_message(chan, 'You need to wait ' + str(getTimeLeft(user, 'catch')) + ' seconds more to use this command again.')
@@ -349,6 +384,23 @@ async def on_message(message):
                 rate = int(msg[2])
             writeIni(getUserFile(user), 'Pokemon', 'XpRate', str(rate))
             await bot.send_message(chan, 'Your pokemon Xp rate changed to ' + str(rate) + '.')
+
+    elif re.match(r'(?i)[!.]uset', msg[0]):
+        file = getUserFile(user)
+        if len(msg) < 2:
+            await bot.send_message(chan, 'Valid actions: pbar')
+            return
+        if msg[1] == 'pbar':
+            cur = '1'
+            if len(msg) > 2:
+                cur = msg[2]
+
+            if cur == '2':
+                writeIni(file, 'Settings', 'pbar', '2')
+            else:
+                writeIni(file, 'Settings', 'pbar', '1')
+            await bot.send_message(chan, 'Your progress bar setting has been changed to ' + cur + '.')
+    
     elif re.match(r'(?i)[!.]pokemon', msg[0]):
         file = getUserFile(user)
         if len(msg) < 2:
@@ -364,6 +416,72 @@ async def on_message(message):
                 return
             setMain(user, uid)
             await bot.send_message(chan, 'You have changed your pokemon to ' + getPokemonName(user))
+    elif re.match(r'(?i)[!.]travel$', msg[0]):
+        if getTimeLeft(user, 'travel') >= 0:
+            await bot.send_message(chan, 'You need to wait ' + str(getTimeLeft(user, 'travel')) + ' seconds more to use this command again.')
+            return
+        else:
+            setTime(user, 'travel', 5)
+        
+        file = getUserFile(user)
+        level = int(readIni(file, 'General', 'Level'))
+        region = readIni(file, 'General', 'Region')
+        location = readIni(file, 'General', 'Location')
+        mfile = 'map\\' + region + '.map'
+        locs = ''
+        target =  " ".join(str(x) for x in msg[1:])
+        if len(msg) < 2 or not isValidLocation(user, target):
+            i = 1
+            while i <= ini(mfile, location + ' Travel', 0):
+                loc = ini(mfile, location + ' Travel', i)
+                rloc = int(readIni(mfile, location + ' Travel', loc))
+                if rloc <= level:
+                    if locs:
+                        locs = locs + ' `' + ini(mfile, location + ' Travel', i) + '`'
+                    else:
+                        locs = '`' + ini(mfile, location + ' Travel', i) + '`'
+                i += 1
+            if locs:
+                await bot.send_message(chan, 'Valid locations are; ' + locs)
+            else:
+                await bot.send_message(chan, 'There is no valid locations to visit.')
+        else:
+            locLevel = int(readIni(mfile, location + ' Travel', target))
+            if locLevel <= level:
+                location = target
+                writeIni(file, 'General', 'Location', target)
+                await bot.send_message(chan, 'You have reached to ' + location)
+            else:
+                await bot.send_message(chan, 'You can\'t travel here at the moment.')
 
+    elif re.match(r'(?i)[!.]pokedex', msg[0]):
+        if getTimeLeft(user, 'pokedex') >= 0:
+            await bot.send_message(chan, 'You need to wait ' + str(getTimeLeft(user, 'pokedex')) + ' seconds more to use this command again.')
+            return
+        else:
+            setTime(user, 'pokedex', 25)
+
+        nick = user
+        if len(msg) > 1 and isMention(msg[1]) == 1:
+            nick = message.mentions[0]
+            
+        file = getPokedexFile(nick)
+        start = 1
+        end = start + 9
+        if end > lines(file):
+            end = lines(file)
+
+        result = ''
+        icon = '+'
+        while start <= end:
+            readn = read(file, str(start))
+            readn = re.split(r'\t+', readn)
+            result = result + icon + ' ' + readn[1] + ' [lv. ' + readn[2] + '] [UID: ' + readn[0] + ']\n'
+            if icon == '+':
+                icon = '-'
+            elif icon == '-':
+                icon = '+'
+            start += 1
+        await bot.send_message(chan, '```diff\n' + result + '```')
 
 bot.run(TOKEN)

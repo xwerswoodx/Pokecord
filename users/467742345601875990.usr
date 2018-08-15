@@ -1,27 +1,31 @@
 [General]
-hp = 50
-maxhp = 50
-exp = 14
-next = 50
-level = 1
+hp = 300
+maxhp = 300
+exp = 150
+next = 153
+level = 6
 region = Kanto
-location = Pallet Town
-pokedex = 1
-gold = 958
+location = Route 22
+pokedex = 4
+gold = 1726
+encounters = 21
+kills = 4
+slays = 17
+statpoints = 30
 
 [Pokemon]
 xprate = 100
 pokemon = Mega Mewtwo X
 uid = 1
-level = 7
+level = 8
 name = Mega Mewtwo X
-hp = 265
-maxhp = 265
-exp = 116
-next = 191
+hp = 300
+maxhp = 300
+exp = 64
+next = 238
 
 [Items]
-pokeball = 1
+pokeball = 99997
 
 [Stats]
 str = 0
@@ -32,20 +36,26 @@ hits = 0
 mana = 0
 
 [Skills]
-pokemonid = 3
-pokemonid cur = 27
-pokemonid max = 39
+pokemonid = 4
+pokemonid cur = 47
+pokemonid max = 49
 
 [Timers]
-adventure = 1534360737
-info = 1534358616
-catch = 1534358948
+adventure = 1534375929
+info = 1534374626
+catch = 1534374515
+travel = 1534375087
+skills = 1534370481
+pokedex = 1534375503
+
+[Settings]
+pbar = 2
 
 [Enemy]
-pokemon = mankey
+pokemon = Meowth
 hp = 0
-maxhp = 26
-level = 2
+maxhp = 75
+level = 5
 region = Kanto
-location = Pallet Town
+location = Route 22
 

@@ -1,13 +1,16 @@
 [General]
-hp = 32
-maxhp = 50
-exp = 10
-next = 50
-level = 1
+hp = 99
+maxhp = 100
+exp = 35
+next = 62
+level = 2
 region = Kanto
-location = Pallet Town
-pokedex = 1
-gold = 8
+location = Route 1
+pokedex = 4
+gold = 157
+kills = 12
+encounters = 13
+statpoints = 10
 
 [Pokemon]
 xprate = 0
@@ -15,13 +18,13 @@ pokemon = Pikachu
 uid = 1
 level = 1
 name = Pikachu
-hp = 10
+hp = 17
 maxhp = 18
-exp = 0
+exp = 16
 next = 50
 
 [Items]
-pokeball = 4
+pokeball = 2
 
 [Stats]
 str = 0
@@ -33,19 +36,25 @@ mana = 0
 
 [Skills]
 pokemonid = 0
-pokemonid cur = 1
+pokemonid cur = 17
 pokemonid max = 20
 
 [Timers]
-adventure = 1534359475
-catch = 1534358442
-info = 1534359487
+adventure = 1534375877
+catch = 1534364113
+info = 1534375730
+travel = 1534368222
+skills = 1534368362
+pokedex = 1534375479
+
+[Settings]
+pbar = 1
 
 [Enemy]
-pokemon = kakuna
-hp = 11
-maxhp = 75
-level = 3
+pokemon = Kakuna
+hp = 74
+maxhp = 100
+level = 4
 region = Kanto
-location = Pallet Town
+location = Route 1
 
